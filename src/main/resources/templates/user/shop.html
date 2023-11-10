@@ -148,23 +148,35 @@
                                     <li class="menu-item has-sub">
                                         <a href="#pages" class="nav-link" data-effect="Pages">Categories</a>
                                         <ul >
-                                            <li th:each="cate : ${listCate}" class="active"><a th:href="@{#}" th:text="${cate.name}"></a></li>
+                                            <li class="active">
+                                                <a href="">All</a>
+                                            </li>
+                                            <li th:each="cate : ${listCate}" class="active"><a th:value="${cate.id}" th:text="${cate.name}"
+                                                                                               th:onclick="'javascript:loadProductsCate(' + ${cate.id} + ');'" ></a></li>
                                         </ul>
                                     </li>
                                     <li class="menu-item has-sub">
                                         <a href="#pages" class="nav-link" data-effect="Pages">Author</a>
                                         <ul >
-                                            <li th:each="author : ${listAuthor}" class="active"><a th:href="@{#}" th:text="${author.name}">Home</a></li>
+                                            <li class="active">
+                                                <a href="">All</a>
+                                            </li>
+                                            <li th:each="author : ${listAuthor}" class="active"><a th:value="${author.id}" th:text="${author.name}"
+                                                                                                   th:onclick="'javascript:loadProductsAuth(' + ${author.id} + ');'" ></a></li>
                                         </ul>
                                     </li>
                                     <li class="menu-item has-sub">
                                         <a href="#pages" class="nav-link" data-effect="Pages">Publisher</a>
                                         <ul >
-                                            <li th:each="pub : ${listPub}" class="active"><a th:href="@{#}" th:text="${pub.name}">Home</a></li>
+                                            <li class="active">
+                                                <a href="">All</a>
+                                            </li>
+                                            <li th:each="pub : ${listPub}" class="active"><a th:value="${pub.id}" th:text="${pub.name}"
+                                                                                             th:onclick="'javascript:loadProductsPub(' + ${pub.id} + ');'"></a></li>
                                         </ul>
                                     </li>
                                 </ul>
-                                <div class="hamburger" th:>
+                                <div class="hamburger">
                                     <span class="bar"></span>
                                     <span class="bar"></span>
                                     <span class="bar"></span>
@@ -179,11 +191,41 @@
                 </div>
             </div>
 
-<!--            <div class="col-md-10">-->
+            <script>
+                function loadProductsCate(categoryId) {
+                    $.get("/shop/category/" + categoryId, function(data) {
+                        $("#products").html(data);
+                    });
+                    if (categoryId === ""){
+                        document.getElementById("pt").style.display = "block";
+                    }else {
+                        document.getElementById("pt").style.display = "none";
+                    }
+                }
 
-<!--                -->
+                function loadProductsAuth(authorId) {
+                    $.get("/shop/author/" + authorId, function(data) {
+                        $("#products").html(data);
+                    });
+                    if (authorId === ""){
+                        document.getElementById("pt").style.display = "block";
+                    }else {
+                        document.getElementById("pt").style.display = "none";
+                    }
+                }
 
-<!--            </div>-->
+                function loadProductsPub(publisherId) {
+                    $.get("/shop/publisher/" + publisherId, function(data) {
+                        $("#products").html(data);
+                    });
+                    if (publisherId === ""){
+                        document.getElementById("pt").style.display = "block";
+                    }else {
+                        document.getElementById("pt").style.display = "none";
+                    }
+                }
+            </script>
+
         </div>
     </div>
 </div><!--site-banner-->
@@ -191,8 +233,8 @@
 <section class="padding-large">
     <div class="container">
         <div class="row">
-            <th:block th:switch="">
-            <div class="products-grid grid" th:case="*" >
+            <th:block>
+            <div class="products-grid grid" id="products" >
                 <figure class="product-style" th:each="product : ${shop_product}">
                     <img th:src="${product.image}" alt="Books" class="product-item">
                     <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
@@ -207,9 +249,10 @@
                 </figure>
             </div>
             </th:block>
+<!--            <div id="products"></div>-->
 
         </div>
-        <div class="row" style="display: inline-flex">
+        <div class="row" style="display: inline-flex" id="pt">
             <!--        phân trang-->
 
             <div th:each="i : ${#numbers.sequence(1,totalPages)}">

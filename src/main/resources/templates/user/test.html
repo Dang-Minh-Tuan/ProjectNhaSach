@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<h1>Products</h1>
+
+<!-- Tạo một menu dropdown cho người dùng chọn thể loại -->
+<select id="category-select" >
+    <option value="all">All</option>
+    <!-- Lặp qua danh sách các thể loại và tạo một option cho mỗi thể loại -->
+    <option th:each="category : ${categories}"
+            th:value="${category.id}"
+            th:text="${category.name}">
+    </option>
+</select>
+
+<!-- Hiển thị danh sách các sản phẩm -->
+<ul id="product-list">
+    <!-- Lặp qua danh sách các sản phẩm và tạo một li cho mỗi sản phẩm -->
+    <li th:each="product : ${products}"
+        th:id="${'product-' + product.id}"
+        th:text="${product.name}">
+    </li>
+</ul>
+
+ Viết một hàm JavaScript để lọc danh sách các sản phẩm theo thể loại đã chọn
+<script>
+    function filterByCategory() {
+        // Lấy giá trị của option đã chọn từ menu dropdown
+        var selectedCategory = document.getElementById("category-select").value;
+
+        // Lấy danh sách các phần tử li từ ul
+        var productList = document.getElementById("product-list");
+        var productItems = productList.getElementsByTagName("li");
+
+        // Lặp qua danh sách các phần tử li
+        for (var i = 0; i < productItems.length; i++) {
+            // Lấy id của phần tử li hiện tại
+            var productId = productItems[i].id;
+
+            // Nếu option đã chọn là "all", hiển thị tất cả các phần tử li
+            if (selectedCategory == "all") {
+                productItems[i].style.display = "block";
+            }
+            // Ngược lại, kiểm tra xem phần tử li hiện tại có thuộc thể loại đã chọn hay không
+            else {
+                // Lấy giá trị của thuộc tính th:if của phần tử li hiện tại
+                // Thuộc tính này sẽ trả về true nếu sản phẩm thuộc thể loại đã chọn, ngược lại trả về false
+                var productCategory = productItems[i].getAttribute("th:if");
+
+                // Nếu giá trị của thuộc tính th:if là true, hiển thị phần tử li hiện tại
+                if (productCategory == "true") {
+                    productItems[i].style.display = "block";
+                }
+                // Ngược lại, ẩn phần tử li hiện tại
+                else {
+                    productItems[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

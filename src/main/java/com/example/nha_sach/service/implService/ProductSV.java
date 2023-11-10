@@ -1,5 +1,6 @@
 package com.example.nha_sach.service.implService;
 
+import com.example.nha_sach.dto.CategoryDTO;
 import org.apache.commons.lang3.StringUtils;
 import com.example.nha_sach.dto.ProductDTO;
 import com.example.nha_sach.entities.Product;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -115,4 +117,47 @@ public class ProductSV implements IProductSV {
         codeUpdate += index; // cộng chuỗi để hoàn thành code
         return codeUpdate;
     }
+
+    @Override
+    public List<ProductDTO> findProductByIdCategory(Long idCate) {
+        List<ProductDTO> list = productRP.findAll().stream().map(x -> productMP.toDTO(x)).toList();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductDTO productDTO: list
+             ) {
+            Long id = productDTO.getCategoryDTOS().get(0).getId();
+            if (id.equals(idCate)){
+                productDTOList.add(productDTO);
+            }
+        }
+        return productDTOList;
+    }
+
+    @Override
+    public List<ProductDTO> findProductByIdAuthor(Long idAuth) {
+        List<ProductDTO> list = productRP.findAll().stream().map(x -> productMP.toDTO(x)).toList();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductDTO productDTO: list
+        ) {
+            Long id = productDTO.getAuthorDTOS().get(0).getId();
+            if (id.equals(idAuth)){
+                productDTOList.add(productDTO);
+            }
+        }
+        return productDTOList;
+    }
+
+    @Override
+    public List<ProductDTO> findProductByIdPublisher(Long idPub) {
+        List<ProductDTO> list = productRP.findAll().stream().map(x -> productMP.toDTO(x)).toList();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (ProductDTO productDTO: list
+        ) {
+            Long id = productDTO.getPublisherDTO().getId();
+            if (id.equals(idPub)){
+                productDTOList.add(productDTO);
+            }
+        }
+        return productDTOList;
+    }
+
 }

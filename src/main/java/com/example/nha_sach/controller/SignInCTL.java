@@ -1,12 +1,12 @@
-package com.example.nha_sach.controller.adminCTL;
+package com.example.nha_sach.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SignUpCTL {
-    @GetMapping("/signUp")
+public class SignInCTL {
+    @GetMapping("/signIn")
     public String SignUp(){
-        return "Admin/sign-up";
+        return "Admin/sign-in";
     }
 }

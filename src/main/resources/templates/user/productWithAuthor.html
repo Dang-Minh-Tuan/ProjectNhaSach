@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Book Store</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+
+  <!--CDN Flowbite Tailwind-->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet"/>
+
+  <link rel="stylesheet" type="text/css" href="../../static/css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="../../static/icomoon/icomoon.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/vendor.css">
+  <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
+
+
+
+
+  <!-- script
+  ================================================== -->
+  <script src="../../static/js/modernizr.js"></script>
+
+
+
+</head>
+
+<body>
+<div th:fragment="productListAuth">
+  <section class="padding-large" >
+    <div class="container">
+      <div class="row" >
+        <th:block >
+          <div class="products-grid grid">
+            <figure class="product-style" th:each="product : ${productsAuth}">
+              <img th:src="${product.image}" alt="Books" class="product-item">
+              <button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+              <figcaption>
+                <h3 th:text="${product.name}"></h3>
+                <p>Adam Silber</p>
+                <div class="item-price">
+                  <span  th:text="${product.price}"></span>.000đ
+                </div>
+              </figcaption>
+              <a type="button" class="add-to-cart" data-product-tile="add-to-cart" style="align-content: center">Show More</a>
+            </figure>
+          </div>
+        </th:block>
+
+      </div>
+      <div class="row" style="display: inline-flex">
+        <!--        phân trang-->
+
+        <!--      <div th:each="i : ${#numbers.sequence(1,totalPages)}">-->
+        <!--        <th:block th:switch="${i != currentPage}">-->
+        <!--          &lt;!&ndash; Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" &ndash;&gt;-->
+        <!--          <a th:case="false" href="#"-->
+        <!--             aria-current="page"-->
+        <!--             class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">[[${i}]]</a>-->
+        <!--          &lt;!&ndash; <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0">...</span>&ndash;&gt;-->
+        <!--          <a th:case="true" th:href="@{'/shop?page='+${i}}"-->
+        <!--             class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex">[[${i}]]</a>-->
+        <!--        </th:block>-->
+        <!--      </div>-->
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="../../static/js/jquery-1.11.0.min.js"></script>
+<script src="../../static/js/plugins.js"></script>
+<script src="../../static/js/script.js"></script>
+
+</body>
+</html>

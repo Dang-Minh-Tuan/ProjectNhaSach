@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -46,7 +47,27 @@ public class ShopCTL {
         model.addAttribute("listCate", categoryDTOS);
         model.addAttribute("listAuthor", authorDTOS);
         model.addAttribute("listPub", publisherDTOS);
-        
         return "user/shop";
+    }
+
+    @GetMapping("shop/category/{categoryId}")
+    public String showProductByCategoryId(@PathVariable Long categoryId, Model model){
+        List<ProductDTO> productDTOS = iProductSV.findProductByIdCategory(categoryId);
+        model.addAttribute("productsCate",productDTOS);
+        return "user/productWithCategory :: productListCate";
+    }
+
+    @GetMapping("shop/author/{authorId}")
+    public String showProductByAuthorId(@PathVariable Long authorId, Model model){
+        List<ProductDTO> productDTOS = iProductSV.findProductByIdAuthor(authorId);
+        model.addAttribute("productsAuth",productDTOS);
+        return "user/productWithAuthor :: productListAuth";
+    }
+
+    @GetMapping("shop/publisher/{publisherId}")
+    public String showProductByPublisherId(@PathVariable Long publisherId, Model model){
+        List<ProductDTO> productDTOS = iProductSV.findProductByIdPublisher(publisherId);
+        model.addAttribute("productsPub",productDTOS);
+        return "user/productWithPublisher :: productListPub";
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardCTL {
     @GetMapping("/dashboard")
     public String home(){
-        return "Admin/dashboard";
+        return "admin/dashboard";
 
     }
 }

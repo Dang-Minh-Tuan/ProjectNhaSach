@@ -11,4 +11,8 @@ public interface IProductSV extends IBaseService<ProductDTO>{
     String checkSizeProduct(String name);
     List<ProductDTO> findProductById(Long id);
     String updateCodeProduct(String name, String code);
+
+    List<ProductDTO> findProductByIdCategory(Long idCate);
+    List<ProductDTO> findProductByIdAuthor(Long idAuth);
+    List<ProductDTO> findProductByIdPublisher(Long idPub);
 }

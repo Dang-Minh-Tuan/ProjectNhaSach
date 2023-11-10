@@ -1,5 +1,6 @@
 package com.example.nha_sach.repository;
 
+import com.example.nha_sach.entities.Category;
 import com.example.nha_sach.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
